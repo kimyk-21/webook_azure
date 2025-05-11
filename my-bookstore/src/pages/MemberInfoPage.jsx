@@ -27,6 +27,19 @@ const MemberInfoPage = () => {
 
   //const userId = userInfo.id;  // userInfo.id를 userId로 할당
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (userInfo?.id) {
+  //       await fetchUserInfo();
+  //       await fetchUserCoupons();
+  //       await fetchUserInterests(userInfo.id);
+  //       await fetchUserComments(userInfo.id);
+  //     }
+  //   };
+  
+  //   fetchData();
+  // }, [userInfo]);
+
   useEffect(() => {
     const fetchData = async () => {
       if (userInfo?.id) {
@@ -38,10 +51,23 @@ const MemberInfoPage = () => {
     };
   
     fetchData();
-  }, [userInfo, fetchUserInfo, fetchUserCoupons]);
-  // fetchUserInfo와 fetchUserCoupons을 의존성 배열에 추가  
+  }, [userInfo, fetchUserInfo, fetchUserCoupons, fetchUserInterests, fetchUserComments]);
   
-  const fetchUserInfo = async () => {
+  // const fetchUserInfo = async () => {
+  //   try {
+  //     const response = await axios.post(`${BASE_URL}/api/infofind`, null, {
+  //       params: { userId: userInfo.email }
+  //     });
+
+  //     console.log("회원 정보:", response.data);
+  //     setUserInfoState(response.data); // 상태 업데이트
+  //   } catch (error) {
+  //     console.error("회원 정보 가져오기 실패", error);
+  //     alert("회원 정보를 불러올 수 없습니다.");
+  //   }
+  // };
+
+  const fetchUserInfo = useCallback(async () => {
     try {
       const response = await axios.post(`${BASE_URL}/api/infofind`, null, {
         params: { userId: userInfo.email }
@@ -53,17 +79,26 @@ const MemberInfoPage = () => {
       console.error("회원 정보 가져오기 실패", error);
       alert("회원 정보를 불러올 수 없습니다.");
     }
-  };
+  }, [userInfo.email]);
 
     // 사용자의 보유 쿠폰 리스트 가져오기
-    const fetchUserCoupons = async () => {
+    // const fetchUserCoupons = async () => {
+    //   try {
+    //     const response = await axios.get(`${BASE_URL}/coupons/user/${userInfo.id}`);
+    //     setCoupons(response.data);
+    //   } catch (error) {
+    //     console.error("쿠폰 조회 실패", error);
+    //   }
+    // };
+
+    const fetchUserCoupons = useCallback(async () => {
       try {
         const response = await axios.get(`${BASE_URL}/coupons/user/${userInfo.id}`);
         setCoupons(response.data);
       } catch (error) {
         console.error("쿠폰 조회 실패", error);
       }
-    };
+    }, [userInfo.id]);
   
     // 쿠폰 생성 (관리자만 가능)
 // 쿠폰 생성 (관리자만 가능)
@@ -114,7 +149,17 @@ const createCoupon = async () => {
   }
 };
 
-    const fetchUserInterests = async (id) => {
+    // const fetchUserInterests = async (id) => {
+    //   try {
+    //     const response = await axios.get(`${BASE_URL}/member/MyPage/${id}/interests`);
+    //     setInterests(response.data || []);
+    //   } catch (error) {
+    //     console.error("관심 분야 가져오기 실패", error);
+    //     setInterests([]);
+    //   }
+    // };
+
+    const fetchUserInterests = useCallback(async (id) => {
       try {
         const response = await axios.get(`${BASE_URL}/member/MyPage/${id}/interests`);
         setInterests(response.data || []);
@@ -122,7 +167,7 @@ const createCoupon = async () => {
         console.error("관심 분야 가져오기 실패", error);
         setInterests([]);
       }
-    };
+    }, []);
   
     const addInterest = async () => {
       if (!newInterest.trim()) {
@@ -166,14 +211,23 @@ const createCoupon = async () => {
       }
     };
 
-    const fetchUserComments = async (userId) => {
+    // const fetchUserComments = async (userId) => {
+    //   try {
+    //     const response = await axios.get(`${BASE_URL}/api/comments/user/${userId}`);
+    //     setComments(response.data || []);
+    //   } catch (error) {
+    //     console.error("댓글 가져오기 실패", error);
+    //   }
+    // };
+
+    const fetchUserComments = useCallback(async (userId) => {
       try {
         const response = await axios.get(`${BASE_URL}/api/comments/user/${userId}`);
         setComments(response.data || []);
       } catch (error) {
         console.error("댓글 가져오기 실패", error);
       }
-    };
+    }, []);
   
     const handleCommentClick = (bookId) => {
       // 도서 상세 페이지로 이동

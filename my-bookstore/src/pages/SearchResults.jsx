@@ -4,7 +4,7 @@ import axios from "axios";
 import styles from "./SearchResults.module.css";
 
 const BASE_URL = "https://20-93-32-30.nip.io";
-const RATING_URL = "https://20-93-32-30.nip.io/ratings/average"; // 평점 평균 API
+//const RATING_URL = "https://20-93-32-30.nip.io/ratings/average"; // 평점 평균 API
 
 const SearchResults = () => {
   const [userInfo, setUserInfo] = useState(null); // 사용자 정보 상태 추가
@@ -17,7 +17,7 @@ const SearchResults = () => {
     sortBy: "title",
     sortOrder: "asc",
   });
-  const [averageRatings, setAverageRatings] = useState({}); // 각 도서의 평균 평점을 저장
+  const [averageRatings] = useState({}); // setAverageRatings 각 도서의 평균 평점을 저장
 
   useEffect(() => {
     const fetchUserInfo = async () => {

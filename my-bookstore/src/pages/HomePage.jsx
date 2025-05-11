@@ -13,34 +13,59 @@ const HomePage = () => {
   const [averageRatings, setAverageRatings] = useState({}); // 각 도서의 평균 평점을 저장
 
   // 도서 목록을 가져오는 함수
-  const fetchBooks = async () => {
-    try {
-      const response = await axios.get(BASE_URL);
-      setBooks(response.data);
-      // 도서 목록을 가져온 후 평균 평점도 함께 가져오기
-      fetchAverageRatings(response.data);
-    } catch (error) {
-      console.error("도서 목록을 불러오는 데 실패했습니다.", error);
-    }
-  };
+  // const fetchBooks = async () => {
+  //   try {
+  //     const response = await axios.get(BASE_URL);
+  //     setBooks(response.data);
+  //     // 도서 목록을 가져온 후 평균 평점도 함께 가져오기
+  //     fetchAverageRatings(response.data);
+  //   } catch (error) {
+  //     console.error("도서 목록을 불러오는 데 실패했습니다.", error);
+  //   }
+  // };
 
   // 각 도서에 대한 평균 평점을 가져오는 함수
-  const fetchAverageRatings = async (books) => {
-    const ratings = {};
-    for (const book of books) {
-      try {
-        const response = await axios.get(RATING_URL, { params: { bookId: book.bookId } });
-        ratings[book.bookId] = response.data;
-      } catch (error) {
-        console.error(`평점 정보를 가져오는 데 실패했습니다. bookId: ${book.bookId}`, error);
-      }
-    }
-    setAverageRatings(ratings); // 평점 정보를 상태에 저장
-  };
+  // const fetchAverageRatings = async (books) => {
+  //   const ratings = {};
+  //   for (const book of books) {
+  //     try {
+  //       const response = await axios.get(RATING_URL, { params: { bookId: book.bookId } });
+  //       ratings[book.bookId] = response.data;
+  //     } catch (error) {
+  //       console.error(`평점 정보를 가져오는 데 실패했습니다. bookId: ${book.bookId}`, error);
+  //     }
+  //   }
+  //   setAverageRatings(ratings); // 평점 정보를 상태에 저장
+  // };
 
   useEffect(() => {
+    //fetchBooks();
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get(BASE_URL);
+        setBooks(response.data);
+        // 도서 목록을 가져온 후 평균 평점도 함께 가져오기
+        fetchAverageRatings(response.data);
+      } catch (error) {
+        console.error("도서 목록을 불러오는 데 실패했습니다.", error);
+      }
+    };
+
+    const fetchAverageRatings = async (books) => {
+      const ratings = {};
+      for (const book of books) {
+        try {
+          const response = await axios.get(RATING_URL, { params: { bookId: book.bookId } });
+          ratings[book.bookId] = response.data;
+        } catch (error) {
+          console.error(`평점 정보를 가져오는 데 실패했습니다. bookId: ${book.bookId}`, error);
+        }
+      }
+      setAverageRatings(ratings); // 평점 정보를 상태에 저장
+    };
+
     fetchBooks();
-  }, [fetchBooks]); // fetchBooks를 의존성 배열에 추가  
+  }, []); // fetchBooks를 의존성 배열에 추가  
 
   // 장르별 필터링
   const filterBooksByGenre = (genre) => {
