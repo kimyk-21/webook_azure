@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./CartPage.module.css";
 
-const BASE_URL = "https://swims.p-e.kr"; // 백엔드 URL
+const BASE_URL = "https://20-93-32-30.nip.io"; // 백엔드 URL
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);

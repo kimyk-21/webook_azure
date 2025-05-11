@@ -17,7 +17,7 @@ import axios from "./axios"; // axios 인스턴스 가져오기
 
 export const AuthContext = createContext();
 
-const BASE_URL = "https://swims.p-e.kr";
+const BASE_URL = "https://20-93-32-30.nip.io";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
