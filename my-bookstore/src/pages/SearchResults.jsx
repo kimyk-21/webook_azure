@@ -92,7 +92,7 @@ const SearchResults = () => {
       }
 
       // 평균 평점 가져오기
-      const ratings = await fetchAverageRatings(uniqueBooks);
+      //const ratings = await fetchAverageRatings(uniqueBooks);
 
       // 정렬 적용
       const sortedBooks = uniqueBooks.sort((a, b) => {
@@ -118,7 +118,7 @@ const SearchResults = () => {
     } catch (error) {
       console.error("검색 오류:", error);
     }
-  }, [search, filters, userInfo]);
+  }, [search, filters, userInfo, averageRatings]);
 
   // 각 도서에 대한 평균 평점을 가져오는 함수
   const fetchAverageRatings = async (books) => {

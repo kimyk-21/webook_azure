@@ -40,7 +40,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchBooks();
-  }, [fetchBooks]); // fetchBooks를 의존성 배열에 추가  
+  }, []); // fetchBooks를 의존성 배열에 추가  
 
   // 장르별 필터링
   const filterBooksByGenre = (genre) => {

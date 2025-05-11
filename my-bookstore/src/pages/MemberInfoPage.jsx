@@ -27,16 +27,19 @@ const MemberInfoPage = () => {
 
   //const userId = userInfo.id;  // userInfo.id를 userId로 할당
 
-
   useEffect(() => {
-    if (userInfo?.id) {
-      fetchUserInfo();
-      fetchUserCoupons();
-      fetchUserInterests(userInfo.id);
-      fetchUserComments(userInfo.id);  // 댓글 가져오기
-    }
+    const fetchData = async () => {
+      if (userInfo?.id) {
+        await fetchUserInfo();
+        await fetchUserCoupons();
+        await fetchUserInterests(userInfo.id);
+        await fetchUserComments(userInfo.id);
+      }
+    };
+  
+    fetchData();
   }, [userInfo]);
-
+  
   const fetchUserInfo = async () => {
     try {
       const response = await axios.post(`${BASE_URL}/api/infofind`, null, {

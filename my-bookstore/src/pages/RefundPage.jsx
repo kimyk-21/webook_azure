@@ -18,7 +18,8 @@ const RefundPage = () => {
 
     try {
       // 환불 요청을 백엔드로 전송
-      const response = await axios.post(
+      //const response = 
+      await axios.post(
         `${BASE_URL}/payments/refund_process`,
         null, // 본문에 추가할 데이터가 없으므로 null
         {
