@@ -40,19 +40,7 @@ const MemberInfoPage = () => {
   //   fetchData();
   // }, [userInfo]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (userInfo?.id) {
-        await fetchUserInfo();
-        await fetchUserCoupons();
-        await fetchUserInterests(userInfo.id);
-        await fetchUserComments(userInfo.id);
-      }
-    };
-  
-    fetchData();
-  }, [userInfo, fetchUserInfo, fetchUserCoupons, fetchUserInterests, fetchUserComments]);
-  
+
   // const fetchUserInfo = async () => {
   //   try {
   //     const response = await axios.post(`${BASE_URL}/api/infofind`, null, {
@@ -228,6 +216,20 @@ const createCoupon = async () => {
         console.error("댓글 가져오기 실패", error);
       }
     }, []);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        if (userInfo?.id) {
+          await fetchUserInfo();
+          await fetchUserCoupons();
+          await fetchUserInterests(userInfo.id);
+          await fetchUserComments(userInfo.id);
+        }
+      };
+    
+      fetchData();
+    }, [userInfo, fetchUserInfo, fetchUserCoupons, fetchUserInterests, fetchUserComments]);
+    
   
     const handleCommentClick = (bookId) => {
       // 도서 상세 페이지로 이동
