@@ -121,18 +121,18 @@ const SearchResults = () => {
   }, [search, filters, userInfo, averageRatings]);
 
   // 각 도서에 대한 평균 평점을 가져오는 함수
-  const fetchAverageRatings = async (books) => {
-    const ratings = {};
-    for (const book of books) {
-      try {
-        const response = await axios.get(RATING_URL, { params: { bookId: book.bookId } });
-        ratings[book.bookId] = response.data;
-      } catch (error) {
-        console.error(`평점 정보를 가져오는 데 실패했습니다. bookId: ${book.bookId}`, error);
-      }
-    }
-    setAverageRatings(ratings); // 평점 정보를 상태에 저장
-  };
+  // const fetchAverageRatings = async (books) => {
+  //   const ratings = {};
+  //   for (const book of books) {
+  //     try {
+  //       const response = await axios.get(RATING_URL, { params: { bookId: book.bookId } });
+  //       ratings[book.bookId] = response.data;
+  //     } catch (error) {
+  //       console.error(`평점 정보를 가져오는 데 실패했습니다. bookId: ${book.bookId}`, error);
+  //     }
+  //   }
+  //   setAverageRatings(ratings); // 평점 정보를 상태에 저장
+  // };
 
   useEffect(() => {
     fetchBooks();

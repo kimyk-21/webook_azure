@@ -38,7 +38,8 @@ const MemberInfoPage = () => {
     };
   
     fetchData();
-  }, [userInfo]);
+  }, [userInfo, fetchUserInfo, fetchUserCoupons]);
+  // fetchUserInfo와 fetchUserCoupons을 의존성 배열에 추가  
   
   const fetchUserInfo = async () => {
     try {
