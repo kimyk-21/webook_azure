@@ -235,7 +235,13 @@ function SignUpPage() {
         {fieldErrors.age && <span className={styles.errorText}>{fieldErrors.age}</span>}
       </div>
 
-      <button className={styles.signupButton} onClick={handleSignUp}>회원가입</button>
+      <button 
+      className={styles.signupButton} 
+      onClick={handleSignUp}
+      disabled={emailExists || !emailChecked}
+      >
+        회원가입
+        </button>
     </div>
   );
 }
