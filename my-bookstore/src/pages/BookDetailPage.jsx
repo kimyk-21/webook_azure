@@ -9,7 +9,7 @@ const BASE_URL = "https://20-93-32-30.nip.io";
 const BookDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated, loggedInUser } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState(null); // 사용자 정보 상태
 
   useEffect(() => {

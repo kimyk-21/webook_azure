@@ -12,10 +12,6 @@ const HomePage = () => {
   const [selectedGenre, setSelectedGenre] = useState("all");
   const [averageRatings, setAverageRatings] = useState({}); // 각 도서의 평균 평점을 저장
 
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
   // 도서 목록을 가져오는 함수
   const fetchBooks = async () => {
     try {
@@ -41,6 +37,10 @@ const HomePage = () => {
     }
     setAverageRatings(ratings); // 평점 정보를 상태에 저장
   };
+
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]); // fetchBooks를 의존성 배열에 추가  
 
   // 장르별 필터링
   const filterBooksByGenre = (genre) => {
